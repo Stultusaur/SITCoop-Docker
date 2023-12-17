@@ -15,5 +15,11 @@ ENV EXTERNAL_IP=""
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
-ENV USER="steam"
+ENV USER="sit"
 ENV DATA_PERM=770
+
+RUN mkdir $DATA_DIR && \
+	mkdir $SERVER_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash $USER && \
+	chown -R $USER $DATA_DIR && \
+	ulimit -n 2048
