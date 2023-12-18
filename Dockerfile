@@ -3,7 +3,8 @@ FROM ich777/winehq-baseimage
 LABEL org.opencontainers.image.authors="stultusaur@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/Stultusaur/learningtodocker"
 
-RUN apt-get update && \
+RUN wget --content-disposition 'https://deb.nodesource.com/setup_18.x' | -E bash - && \
+	apt-get update && \
 	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -23,3 +24,9 @@ RUN mkdir $DATA_DIR && \
 	useradd -d $DATA_DIR -s /bin/bash $USER && \
 	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
+
+ADD /scripts/ /opt/scripts/
+RUN chmod -R 770 /opt/scripts/
+
+#Server Start
+ENTRYPOINT ["/opt/scripts/start.sh"]
