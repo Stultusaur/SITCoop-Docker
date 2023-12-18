@@ -18,9 +18,11 @@ Note this docker container does not automatically update to new version, due to 
 docker run --name SITCoop -d \
 	--env 'UID=99' \
 	--env 'GID=100' \
+    --env 'EXTERNAL_IP=127.0.0.1' \
     --volume /path/to/sitcoop:/serverdata/serverfiles \
     stultusaur/sitcoop:latest
 ```
+To find your external IP go to https://whatismyipaddress.com/
 
 This docker container was created with assistance from ich777/docker-steamcmd-server
 
