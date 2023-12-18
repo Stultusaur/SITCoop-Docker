@@ -3,11 +3,16 @@ FROM ich777/winehq-baseimage
 LABEL org.opencontainers.image.authors="stultusaur@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/Stultusaur/learningtodocker"
 
-RUN wget --content-disposition -quiet 'https://deb.nodesource.com/setup_18.x' | bash -E - && \
-	apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind nodejs p7zip-full && \
-	rm -rf /var/lib/apt/lists/* && \
-	rm setup_18.x -f
+RUN apt-get update && \
+	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind nodejs p7zip-full \
+	curl git gnupg
+
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+	apt-get install -y nodejs \
+	build-essential && \
+	node --version && \ 
+	npm --version && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
@@ -18,7 +23,7 @@ ENV UMASK=000
 ENV UID=99
 ENV GID=100
 ENV USER="sit"
-ENV DATA_PERM=770
+ENV DATA_PERM=775
 
 RUN mkdir $DATA_DIR && \
 	mkdir $SERVER_DIR && \
@@ -27,7 +32,7 @@ RUN mkdir $DATA_DIR && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/
+RUN chmod -R 775 /opt/scripts/
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start.sh"]
