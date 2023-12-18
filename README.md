@@ -15,7 +15,7 @@ Note this docker container does not automatically update to new version, due to 
 
 ## Run example
 ```
-docker run --name SITCoop -d \
+docker run --name SITCoop -d -t -i \
 	--env 'UID=99' \
 	--env 'GID=100' \
     --env 'EXTERNAL_IP=127.0.0.1' \
