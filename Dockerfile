@@ -3,7 +3,7 @@ FROM ich777/winehq-baseimage
 LABEL org.opencontainers.image.authors="stultusaur@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/Stultusaur/learningtodocker"
 
-RUN wget --content-disposition 'https://deb.nodesource.com/setup_18.x' | -E bash - && \
+RUN wget --content-disposition -quiet 'https://deb.nodesource.com/setup_18.x' | bash -E - && \
 	apt-get update && \
 	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind nodejs p7zip-full && \
 	rm -rf /var/lib/apt/lists/* && \
