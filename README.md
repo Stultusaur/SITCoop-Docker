@@ -27,3 +27,8 @@ To find your external IP go to https://whatismyipaddress.com/
 This docker container was created with assistance from ich777/docker-steamcmd-server
 
 If any issues arise, please create an issue with any logs/information available.
+
+# Regards
+Thank you to Christopher "ich777" Hummer, would not have gotten this container created as fast without his base images.
+Thanks to Paulov and everyone else that helps and supports the SIT Coop mod.
+Thank to SPT-Aki Devs for creating SPT-Aki mod.
