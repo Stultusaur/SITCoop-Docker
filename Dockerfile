@@ -17,13 +17,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV COOP_DIR="${SERVER_DIR}/user/mods/SITCoop"
-ENV LOCAL_IP="127.0.0.1"
+ENV LOCAL_IP="0.0.0.0"
 ENV EXTERNAL_IP="127.0.0.1"
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
 ENV USER="sit"
-ENV DATA_PERM=775
+ENV DATA_PERM=770
 
 RUN mkdir $DATA_DIR && \
 	mkdir $SERVER_DIR && \
@@ -32,7 +32,7 @@ RUN mkdir $DATA_DIR && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 775 /opt/scripts/
+RUN chmod -R 770 /opt/scripts/
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start.sh"]
