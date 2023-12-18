@@ -66,6 +66,5 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   sleep infinity
 else
   cd ${SERVER_DIR}
-  sh "start-sit.sh"
-  sleep infinity
+  NODE_SKIP_PLATFORM_CHECK=1 wine64 ${SERVER_DIR}/Aki.Server.exe
 fi
