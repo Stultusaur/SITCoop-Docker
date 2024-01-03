@@ -1,5 +1,5 @@
-# SITCoop using SPT-AKI version 3.7.4
-This docker will download the SPT-Aki version 3.7.4 and SITCoop version release: 2023-12-04
+# SITCoop using SPT-AKI version 3.7.5
+This docker will download the SPT-Aki version 3.7.5 and SITCoop server version release: 1.5.1 | Client version 1.9.8767.26420
 **WARNING:** You have to run the docker container using the -i -t switches, (interactive and TTY), this is due to how the nodeJS application runs.
 
 Note this docker container does not automatically update to new version, due to how the SPT-Aki and SITCoop files are named. I may look into making it automatic in the future.
@@ -29,6 +29,6 @@ This docker container was created with assistance from ich777/docker-steamcmd-se
 If any issues arise, please create an issue with any logs/information available.
 
 # Regards
-Thank you to Christopher "ich777" Hummer, would not have gotten this container created as fast without his base images.
-Thanks to Paulov and everyone else that helps and supports the SIT Coop mod.
-Thank to SPT-Aki Devs for creating SPT-Aki mod.
+Thank you to Christoph "ich777" Hummer, would not have gotten this container created as fast without his base images.
+Thanks to Paulov and everyone else that helps supporting the SIT Coop mod.
+Thank to SPT-Aki Devs for creating SPT-Aki.
