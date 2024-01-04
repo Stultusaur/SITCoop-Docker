@@ -2,7 +2,7 @@
 if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   echo "Aki.Server.exe not found, downloading version 3.7.6"
   wget --content-disposition --quiet -O ${SERVER_DIR}/AkiServer.zip 'https://dev.sp-tarkov.com/attachments/d549e35d-998c-4986-8c78-64571a6e083c'
-  7za x ${SERVER_DIR}/AkiServer.zip -o${SERVER_DIR}/ -aoa
+  7za x ${SERVER_DIR}/AkiServer.zip -o${SERVER_DIR}/ -aoa -y -bsp0 -bso0
   rm ${SERVER_DIR}/AkiServer.zip -f
 
 elif [ -f ${SERVER_DIR}/Aki.Server.exe ]; then
