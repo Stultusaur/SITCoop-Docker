@@ -6,12 +6,6 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   rm ${SERVER_DIR}/AkiServer.zip -f
 fi
 
-if [ ! -f ${SERVER_DIR}/start-sit.sh ]; then
-  echo "start-sit.sh not found, creating"
-  touch ${SERVER_DIR}/start-sit.sh
-  echo -e "#!/bin/sh\nNODE_SKIP_PLATFORM_CHECK=1 wine ${SERVER_DIR}/Aki.Server.exe"
-fi
-
 if [ ! -d ${COOP_DIR} ]; then
   echo "SITCoop not found, downloading"
   mkdir -p ${SERVER_DIR}/user/mods
