@@ -1,23 +1,35 @@
 #!/bin/bash
 if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
-  echo "Aki.Server not found, downloading"
-  wget --content-disposition --quiet -O ${SERVER_DIR}/AkiServer.zip 'https://dev.sp-tarkov.com/attachments/5551fbd4-9c7a-41d6-a4a1-db99d7103ea4'
+  echo "Aki.Server.exe not found, downloading version 3.7.5"
+  wget --content-disposition --quiet -O ${SERVER_DIR}/AkiServer.zip 'https://dev.sp-tarkov.com/attachments/1608ad54-029c-4ba1-93c6-b4d43f9f13c4'
   7za x ${SERVER_DIR}/AkiServer.zip -o${SERVER_DIR}/ -aoa
   rm ${SERVER_DIR}/AkiServer.zip -f
+
+elif [ -f ${SERVER_DIR}/Aki.Server.exe ]; then
+  ExifCommand="$(exiftool -ProductVersion ${SERVER_DIR}/Aki.Server.exe)"
+  if [[ "$ExifCommand" == *3.7.3* ]] && [ ${UPDATE} = true ]; then
+    echo "Version 3.7.4 is installed, updating to 3.7.5"
+    echo "Archiving current SPT install to 3.7.4_backup.tar"
+    tar --exclude "${SERVER_DIR}/WINE64" -cf ${SERVER_DIR}/3.7.4_backup.tar ${SERVER_DIR}/*
+    wget --content-disposition --quiet -O ${SERVER_DIR}/AkiServer.zip 'https://dev.sp-tarkov.com/attachments/1608ad54-029c-4ba1-93c6-b4d43f9f13c4'
+    7za x ${SERVER_DIR}/AkiServer.zip -o${SERVER_DIR}/ -aoa -y -bsp0 -bso0
+    rm ${SERVER_DIR}/AkiServer.zip -f
+  fi
 fi
 
-if [ ! -f ${SERVER_DIR}/start-sit.sh ]; then
-  echo "start-sit.sh not found, creating"
-  touch ${SERVER_DIR}/start-sit.sh
-  echo -e "#!/bin/sh\nNODE_SKIP_PLATFORM_CHECK=1 wine ${SERVER_DIR}/Aki.Server.exe"
-fi
-
-if [ ! -d ${COOP_DIR} ]; then
+if [ -f ${COOP_DIR}/package.json ]; then 
+  SITCoopVersion=$(grep  '"version":' ${COOP_DIR}/package.json)
+  if [[ "$SITCoopVersion" != *1.5.1* ]] && [ ${UPDATE} = true ]; then
+    echo "$SITCoopVersion found, downloading 1.5.1"
+    wget --content-disposition --quiet -O ${SERVER_DIR}/user/mods/SITCoop.zip 'https://github.com/stayintarkov/SIT.Aki-Server-Mod/releases/download/1.5.1/SITCoop.zip'
+    7za x ${SERVER_DIR}/user/mods/SITCoop.zip -o${SERVER_DIR}/user/mods -aoa -y -bsp0 -bso0
+  fi
+elif [ ! -f ${COOP_DIR}/package.json ]; then
   echo "SITCoop not found, downloading"
   mkdir -p ${SERVER_DIR}/user/mods
-  wget --content-disposition --quiet -O ${SERVER_DIR}/user/mods/SITCoop.zip 'https://github.com/stayintarkov/SIT.Aki-Server-Mod/archive/refs/tags/2023-12-04.zip'
-  7za x ${SERVER_DIR}/user/mods/SITCoop.zip -o${SERVER_DIR}/user/mods -aoa
-  mv ${SERVER_DIR}/user/mods/SIT.Aki-Server-Mod-2023-12-04 ${COOP_DIR}
+  wget --content-disposition --quiet -O ${SERVER_DIR}/user/mods/SITCoop.zip 'https://github.com/stayintarkov/SIT.Aki-Server-Mod/releases/download/1.5.1/SITCoop.zip'
+  7za x ${SERVER_DIR}/user/mods/SITCoop.zip -o${SERVER_DIR}/user/mods -aoa -y -bsp0 -bso0
+  # mv ${SERVER_DIR}/user/mods/SIT.Aki-Server-Mod-2023-12-04 ${COOP_DIR}
   mkdir ${COOP_DIR}/config
   rm ${SERVER_DIR}/user/mods/SITCoop.zip -f
 fi
@@ -58,8 +70,6 @@ fi
 
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Start Server---"
-node --version
-dotnet --info
 
 if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   echo "---Something went wrong, can't find the executable, putting container into sleep mode!---"
