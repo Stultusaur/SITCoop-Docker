@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.authors="stultusaur@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/Stultusaur/SITCoop-Docker"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind nodejs p7zip-full exiftool \
+	apt-get -y install --no-install-recommends lib32gcc-s1 lib32stdc++6 lib32z1 screen xvfb winbind p7zip-full exiftool \
 	curl git gnupg
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
