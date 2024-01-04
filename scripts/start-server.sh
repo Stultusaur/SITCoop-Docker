@@ -8,9 +8,9 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
 elif [ -f ${SERVER_DIR}/Aki.Server.exe ]; then
   ExifCommand="$(exiftool -ProductVersion ${SERVER_DIR}/Aki.Server.exe)"
   if [[ "$ExifCommand" == *3.7.3* ]] && [ ${UPDATE} = true ]; then
-    echo "Version 3.7.4 is installed, updating to 3.7.5"
-    echo "Archiving current SPT install to 3.7.4_backup.tar"
-    tar --exclude "${SERVER_DIR}/WINE64" -cf ${SERVER_DIR}/3.7.4_backup.tar ${SERVER_DIR}/*
+    echo "$ExifCommand version is installed, updating to 3.7.5"
+    echo "Archiving current SPT install to backup.tar"
+    tar --exclude "${SERVER_DIR}/WINE64" -cf ${SERVER_DIR}/backup.tar ${SERVER_DIR}/*
     wget --content-disposition --quiet -O ${SERVER_DIR}/AkiServer.zip 'https://dev.sp-tarkov.com/attachments/1608ad54-029c-4ba1-93c6-b4d43f9f13c4'
     7za x ${SERVER_DIR}/AkiServer.zip -o${SERVER_DIR}/ -aoa -y -bsp0 -bso0
     rm ${SERVER_DIR}/AkiServer.zip -f
