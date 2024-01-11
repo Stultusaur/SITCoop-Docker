@@ -7,7 +7,7 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
 
 elif [ -f ${SERVER_DIR}/Aki.Server.exe ]; then
   ExifCommand="$(exiftool -ProductVersion ${SERVER_DIR}/Aki.Server.exe)"
-  if [[ "$ExifCommand" == *3.7.5* ]] && [ ${UPDATE} = true ]; then
+  if [[ "$ExifCommand" != *3.7.5* ]] && [ ${UPDATE} = true ]; then
     echo "$ExifCommand version is installed, updating to 3.7.6"
     echo "Archiving current SPT install to backup.tar"
     tar --exclude "${SERVER_DIR}/WINE64" -cf ${SERVER_DIR}/backup.tar ${SERVER_DIR}/*
@@ -74,5 +74,5 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   sleep infinity
 else
   cd ${SERVER_DIR}
-  screen -S SITCoop -d -m NODE_SKIP_PLATFORM_CHECK=1 wine64 ${SERVER_DIR}/Aki.Server.exe
+  screen -S SITCoop -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m NODE_SKIP_PLATFORM_CHECK=1 wine64 ${SERVER_DIR}/Aki.Server.exe
 fi
