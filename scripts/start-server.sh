@@ -29,7 +29,6 @@ elif [ ! -f ${COOP_DIR}/package.json ]; then
   mkdir -p ${SERVER_DIR}/user/mods
   wget --content-disposition --quiet -O ${SERVER_DIR}/user/mods/SITCoop.zip 'https://github.com/stayintarkov/SIT.Aki-Server-Mod/releases/download/1.5.1/SITCoop.zip'
   7za x ${SERVER_DIR}/user/mods/SITCoop.zip -o${SERVER_DIR}/user/mods -aoa -y -bsp0 -bso0
-  # mv ${SERVER_DIR}/user/mods/SIT.Aki-Server-Mod-2023-12-04 ${COOP_DIR}
   mkdir ${COOP_DIR}/config
   rm ${SERVER_DIR}/user/mods/SITCoop.zip -f
 fi
@@ -48,7 +47,6 @@ if [ -f ${SERVER_DIR}/Aki_Data/Server/configs/http.json ]; then
   sed -i "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/${LOCAL_IP}/g" ${SERVER_DIR}/Aki_Data/Server/configs/http.json
 fi
 
-#export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64
 export WINEDEBUG=-all
 echo "---Checking if WINE workdirectory is present---"
@@ -76,5 +74,5 @@ if [ ! -f ${SERVER_DIR}/Aki.Server.exe ]; then
   sleep infinity
 else
   cd ${SERVER_DIR}
-  NODE_SKIP_PLATFORM_CHECK=1 wine64 ${SERVER_DIR}/Aki.Server.exe
+  screen -S SITCoop -d -m NODE_SKIP_PLATFORM_CHECK=1 wine64 ${SERVER_DIR}/Aki.Server.exe
 fi
